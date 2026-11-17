@@ -3,1403 +3,1312 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#08090d">
-<title>VORTEX VPN | Powered by PKDEV</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0d12">
+<meta name="description" content="PKDEV Network — Internet speed test, ping, jitter and DNS lookup tools.">
+<title>PKDEV Network — Internet Tools</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg:#08090d;
-  --panel:#101219;
-  --panel2:#151923;
-  --border:rgba(255,255,255,.075);
-  --red:#ff334f;
-  --red2:#ff6548;
-  --text:#f4f5f9;
-  --muted:#858b9b;
-  --green:#32d99a;
-  --blue:#6a9cff;
+  --bg:#0b0d12;
+  --surface:#11141c;
+  --surface2:#171b25;
+  --line:rgba(255,255,255,.085);
+  --text:#f2f3f7;
+  --muted:#858c9d;
+  --accent:#b9f36a;
+  --accent2:#d5ff9a;
+  --blue:#83b7ff;
+  --red:#ff7272;
+  --mono:'DM Mono',monospace;
+  --font:'Manrope',sans-serif;
 }
 
-* {
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+* {box-sizing:border-box;margin:0;padding:0}
 
 body {
   background:
-    radial-gradient(ellipse at 75% 0%,rgba(255,51,79,.10),transparent 35%),
+    radial-gradient(ellipse at 85% 0%,rgba(185,243,106,.065),transparent 35%),
     var(--bg);
   color:var(--text);
-  font-family:Inter,Arial,sans-serif;
+  font-family:var(--font);
   min-height:100vh;
 }
 
-button,input,select {
-  font:inherit;
+button,input,select {font:inherit}
+button {cursor:pointer}
+
+a {color:inherit;text-decoration:none}
+
+.shell {
+  max-width:1440px;
+  margin:auto;
+  padding:0 55px;
 }
 
-button {
-  cursor:pointer;
-}
+/* HEADER */
 
-.app {
+header {
+  height:83px;
   display:flex;
-  min-height:100vh;
-}
-
-/* SIDEBAR */
-
-.sidebar {
-  width:260px;
-  flex-shrink:0;
-  padding:30px 20px;
-  border-right:1px solid var(--border);
-  background:rgba(12,14,20,.94);
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
 }
 
 .brand {
   display:flex;
   align-items:center;
-  gap:13px;
-  padding:5px 7px 32px;
+  gap:12px;
 }
 
-.brand-icon {
-  width:48px;
-  height:48px;
-  border-radius:15px;
-  background:linear-gradient(145deg,#ff5265,#c81738);
+.brand-mark {
+  width:38px;
+  height:38px;
   display:grid;
   place-items:center;
-  box-shadow:0 8px 30px rgba(255,40,75,.25);
-}
-
-.brand-icon svg {
-  width:29px;
-  height:29px;
+  background:var(--accent);
+  color:#10150b;
+  border-radius:11px;
+  font-size:23px;
+  font-weight:900;
 }
 
 .brand-name {
-  font-size:21px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-.brand-sub {
-  font-size:9px;
-  letter-spacing:2.2px;
-  color:var(--muted);
-  margin-top:5px;
-}
-
-.menu-label {
-  color:#656c7b;
-  font-size:10px;
+  font-size:16px;
   font-weight:800;
+  letter-spacing:1.5px;
+}
+
+.brand-caption {
+  color:var(--muted);
+  font-size:9px;
   letter-spacing:2px;
-  padding:14px 12px;
+  margin-top:3px;
 }
 
-.nav {
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.nav button {
+.header-right {
   display:flex;
   align-items:center;
-  gap:13px;
-  padding:14px 15px;
-  border:1px solid transparent;
-  background:transparent;
-  color:#9ba1b0;
-  border-radius:12px;
-  text-align:left;
-  font-size:13px;
+  gap:23px;
+}
+
+.header-link {
+  color:#a4aaba;
+  font-size:11px;
   transition:.2s;
 }
 
-.nav button:hover {
-  color:white;
-  background:rgba(255,255,255,.04);
-}
+.header-link:hover {color:var(--accent)}
 
-.nav button.active {
-  color:white;
-  background:linear-gradient(90deg,rgba(255,51,79,.17),rgba(255,51,79,.035));
-  border-color:rgba(255,51,79,.17);
-}
-
-.nav button.active .nav-icon {
-  color:var(--red);
-}
-
-.nav-icon {
-  width:20px;
-  font-size:17px;
-  text-align:center;
-}
-
-.sidebar-bottom {
-  margin-top:auto;
-}
-
-.powered {
-  border-top:1px solid var(--border);
-  padding:23px 10px 0;
-  color:#666d7c;
+.header-status {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#aab1c0;
   font-size:10px;
-  letter-spacing:1.5px;
-  line-height:2;
 }
 
-.powered strong {
-  color:#e2e4eb;
-  letter-spacing:2px;
-}
-
-/* MAIN */
-
-.main {
-  flex:1;
-  min-width:0;
-  padding:30px 38px 50px;
-}
-
-.topbar {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  margin-bottom:35px;
-}
-
-.page-title {
-  font-size:25px;
-  font-weight:800;
-}
-
-.page-subtitle {
-  color:var(--muted);
-  font-size:12px;
-  margin-top:8px;
-}
-
-.top-right {
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.internet-pill {
-  border:1px solid var(--border);
-  background:var(--panel);
-  border-radius:30px;
-  padding:11px 15px;
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:11px;
-  color:#aeb4c2;
-}
-
-.dot {
-  width:8px;
-  height:8px;
+.status-dot {
+  width:7px;
+  height:7px;
   border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 10px var(--green);
+  background:var(--accent);
+  box-shadow:0 0 12px var(--accent);
 }
 
-.language-btn {
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:11px 14px;
-  color:white;
-  font-size:11px;
-}
-
-/* PAGES */
-
-.page {
-  display:none;
-  animation:appear .3s ease;
-}
-
-.page.active {
-  display:block;
-}
-
-@keyframes appear {
-  from {opacity:0;transform:translateY(8px)}
-  to {opacity:1;transform:translateY(0)}
-}
+/* HERO */
 
 .hero {
-  background:
-    radial-gradient(ellipse at 80% 30%,rgba(255,51,79,.15),transparent 40%),
-    linear-gradient(120deg,#171923,#101219 70%);
-  border:1px solid var(--border);
-  border-radius:23px;
-  padding:35px;
-  display:grid;
-  grid-template-columns:1fr 290px;
-  gap:20px;
-  align-items:center;
-  overflow:hidden;
-  position:relative;
+  padding:65px 0 45px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:30px;
 }
 
 .eyebrow {
-  color:var(--red);
+  color:var(--accent);
+  font-family:var(--mono);
   font-size:10px;
-  font-weight:800;
-  letter-spacing:3px;
-  margin-bottom:16px;
-}
-
-.hero h1 {
-  font-size:clamp(25px,3vw,39px);
-  line-height:1.2;
-  font-weight:900;
-  max-width:550px;
-}
-
-.hero h1 span {
-  color:var(--red);
-}
-
-.hero-desc {
-  max-width:500px;
-  color:#969dad;
-  font-size:13px;
-  line-height:1.9;
-  margin-top:15px;
-}
-
-.hero-actions {
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:25px;
-}
-
-.primary-btn {
-  border:0;
-  color:white;
-  background:linear-gradient(110deg,#ff334f,#e51c42);
-  padding:13px 20px;
-  border-radius:10px;
-  font-size:12px;
-  font-weight:800;
-  box-shadow:0 8px 25px rgba(255,51,79,.2);
-}
-
-.secondary-btn {
-  background:rgba(255,255,255,.04);
-  border:1px solid var(--border);
-  color:#dce0e9;
-  padding:13px 20px;
-  border-radius:10px;
-  font-size:12px;
-}
-
-.hero-art {
-  display:grid;
-  place-items:center;
-  min-height:210px;
-}
-
-.orbit {
-  width:190px;
-  height:190px;
-  border-radius:50%;
-  border:1px solid rgba(255,51,79,.2);
-  display:grid;
-  place-items:center;
-  position:relative;
-  box-shadow:0 0 70px rgba(255,51,79,.08);
-}
-
-.orbit:before,.orbit:after {
-  content:"";
-  position:absolute;
-  border:1px solid rgba(255,51,79,.13);
-  border-radius:50%;
-}
-
-.orbit:before {inset:14px}
-.orbit:after {inset:-14px}
-
-.orbit-logo {
-  width:115px;
-  height:115px;
-  background:linear-gradient(145deg,#ff5369,#b91135);
-  border-radius:34px;
-  display:grid;
-  place-items:center;
-  box-shadow:0 0 50px rgba(255,51,79,.28);
-}
-
-.orbit-logo svg {
-  width:70px;
-  height:70px;
-}
-
-/* POWER */
-
-.dashboard-grid {
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:20px;
-  margin-top:22px;
-}
-
-.panel {
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:19px;
-  padding:25px;
-  min-width:0;
-}
-
-.panel-heading {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  margin-bottom:22px;
-}
-
-.panel-heading h3 {
-  font-size:14px;
-  font-weight:800;
-}
-
-.panel-heading span {
-  color:var(--muted);
-  font-size:10px;
-}
-
-.connection-area {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:25px;
-  padding:12px 0 20px;
-  flex-wrap:wrap;
-}
-
-.power-button {
-  width:145px;
-  height:145px;
-  border-radius:50%;
-  background:
-    radial-gradient(circle at center,#1c202a 45%,#11141c 70%);
-  border:2px solid rgba(255,51,79,.6);
-  box-shadow:
-    0 0 0 9px rgba(255,51,79,.035),
-    0 0 40px rgba(255,51,79,.13),
-    inset 0 0 25px rgba(255,51,79,.08);
-  display:grid;
-  place-items:center;
-  color:var(--red);
-  transition:.25s;
-}
-
-.power-button:hover {
-  transform:scale(1.035);
-  box-shadow:
-    0 0 0 12px rgba(255,51,79,.06),
-    0 0 55px rgba(255,51,79,.25);
-}
-
-.power-button svg {
-  width:55px;
-  height:55px;
-}
-
-.power-button.demo {
-  border-color:#ffb44a;
-  color:#ffb44a;
-  box-shadow:0 0 40px rgba(255,180,74,.15);
-}
-
-.connection-text {
-  text-align:center;
-}
-
-.connection-text h2 {
-  font-size:19px;
-  margin-bottom:8px;
-}
-
-.connection-text p {
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.8;
-}
-
-.status-tag {
-  display:inline-block;
-  border-radius:30px;
-  padding:7px 11px;
-  margin-top:13px;
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:1px;
-  color:#ffb44a;
-  background:rgba(255,180,74,.09);
-  border:1px solid rgba(255,180,74,.2);
-}
-
-/* SERVER */
-
-.server-select {
-  width:100%;
-  padding:14px;
-  background:#191d27;
-  border:1px solid var(--border);
-  border-radius:11px;
-  color:white;
-  outline:none;
-  margin-top:10px;
-}
-
-.server-info {
-  display:flex;
-  align-items:center;
-  gap:13px;
-  margin-top:15px;
-  padding:14px;
-  background:rgba(255,255,255,.025);
-  border-radius:12px;
-}
-
-.flag {
-  width:39px;
-  height:39px;
-  border-radius:11px;
-  display:grid;
-  place-items:center;
-  background:#222734;
-  font-size:20px;
-}
-
-.server-info strong {
-  font-size:12px;
-}
-
-.server-info p {
-  color:var(--muted);
-  font-size:10px;
-  margin-top:5px;
-}
-
-/* METRICS */
-
-.metrics {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:17px;
-  margin-top:20px;
-}
-
-.metric {
-  padding:22px;
-  border:1px solid var(--border);
-  border-radius:17px;
-  background:linear-gradient(145deg,#12151d,#0e1016);
-}
-
-.metric-icon {
-  font-size:19px;
+  letter-spacing:2px;
   margin-bottom:17px;
 }
 
-.metric-label {
-  color:var(--muted);
-  font-size:10px;
-  margin-bottom:10px;
-}
-
-.metric-value {
-  font-size:19px;
+.hero h1 {
+  font-size:clamp(36px,5vw,65px);
+  letter-spacing:-3px;
+  line-height:1.08;
   font-weight:800;
-  overflow-wrap:anywhere;
 }
 
-.metric-note {
-  font-size:9px;
-  color:#747b8b;
-  margin-top:8px;
-}
+.hero h1 span {color:var(--accent)}
 
-/* GENERAL PAGES */
-
-.section-title {
-  font-size:23px;
-  font-weight:900;
-  margin-bottom:9px;
-}
-
-.section-desc {
+.hero-description {
   color:var(--muted);
-  font-size:12px;
-  line-height:1.8;
-  margin-bottom:25px;
-}
-
-.tool-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:18px;
-}
-
-.tool-card {
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:23px;
-}
-
-.tool-card h3 {
-  font-size:14px;
-  margin-bottom:10px;
-}
-
-.tool-card p {
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.8;
-}
-
-.tool-card button {
+  font-size:13px;
+  line-height:1.9;
+  max-width:500px;
   margin-top:17px;
 }
 
-.result {
-  margin-top:15px;
-  padding:13px;
-  border-radius:10px;
-  background:#090c12;
-  color:#aeb7c8;
+.hero-meta {
+  color:#777f90;
+  font-family:var(--mono);
+  font-size:10px;
+  line-height:2;
+  text-align:right;
+}
+
+/* NAV */
+
+.tabs {
+  display:flex;
+  gap:8px;
+  border-bottom:1px solid var(--line);
+  overflow-x:auto;
+}
+
+.tab {
+  background:transparent;
+  border:0;
+  color:var(--muted);
+  padding:16px 19px;
   font-size:11px;
-  line-height:1.8;
-  overflow-wrap:anywhere;
-  min-height:42px;
+  white-space:nowrap;
+  border-bottom:2px solid transparent;
+  transition:.2s;
 }
 
-.field {
-  width:100%;
-  background:#090c12;
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:13px;
-  color:white;
-  outline:none;
-  margin-top:12px;
+.tab:hover {color:white}
+
+.tab.active {
+  color:var(--accent);
+  border-bottom-color:var(--accent);
 }
 
-.field:focus {
-  border-color:rgba(255,51,79,.6);
+/* CONTENT */
+
+.content {padding:30px 0 70px}
+
+.view {display:none;animation:fade .3s ease}
+.view.active {display:block}
+
+@keyframes fade {
+  from {opacity:0;transform:translateY(7px)}
+  to {opacity:1;transform:translateY(0)}
 }
 
-.setting-row {
+.section-heading {
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:15px;
-  padding:19px 0;
-  border-bottom:1px solid var(--border);
+  margin-bottom:19px;
 }
 
-.setting-row strong {
-  font-size:12px;
+.section-heading h2 {
+  font-size:17px;
+  font-weight:800;
 }
 
-.setting-row p {
+.section-heading p {
   color:var(--muted);
   font-size:10px;
   margin-top:6px;
 }
 
-.switch {
-  width:43px;
-  height:24px;
-  appearance:none;
-  background:#303543;
+.mono {font-family:var(--mono)}
+
+/* SPEED TEST */
+
+.speed-layout {
+  display:grid;
+  grid-template-columns:1.35fr .8fr;
+  gap:18px;
+}
+
+.speed-main {
+  background:
+    radial-gradient(circle at 50% 48%,rgba(185,243,106,.075),transparent 42%),
+    var(--surface);
+  border:1px solid var(--line);
   border-radius:20px;
-  position:relative;
-  cursor:pointer;
-  flex-shrink:0;
+  padding:30px;
+  min-height:430px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-.switch:before {
-  content:"";
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:white;
-  position:absolute;
-  top:3px;
-  left:3px;
-  transition:.2s;
-}
-
-.switch:checked {
-  background:var(--red);
-}
-
-.switch:checked:before {
-  left:22px;
-}
-
-.notice {
-  background:rgba(255,180,74,.07);
-  border:1px solid rgba(255,180,74,.18);
-  color:#eab86d;
-  border-radius:12px;
-  padding:15px;
-  font-size:11px;
-  line-height:1.8;
-  margin-top:20px;
-}
-
-.footer {
-  text-align:center;
-  color:#626978;
+.speed-label {
+  align-self:flex-start;
+  color:var(--muted);
+  font-family:var(--mono);
   font-size:10px;
-  margin-top:35px;
   letter-spacing:1px;
 }
 
-/* MOBILE */
-
-@media(max-width:950px) {
-  .sidebar {width:220px}
-  .main {padding:25px}
-  .hero {grid-template-columns:1fr 200px}
+.gauge {
+  width:250px;
+  height:250px;
+  position:relative;
+  display:grid;
+  place-items:center;
+  margin:30px auto 23px;
 }
 
-@media(max-width:700px) {
-  .app {display:block}
-  .sidebar {
-    min-height:auto;
-    width:100%;
-    padding:13px 14px;
-    border-right:0;
-    border-bottom:1px solid var(--border);
+.gauge svg {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  transform:rotate(-90deg);
+}
+
+.gauge-track {
+  fill:none;
+  stroke:#252b35;
+  stroke-width:7;
+}
+
+.gauge-progress {
+  fill:none;
+  stroke:var(--accent);
+  stroke-width:7;
+  stroke-linecap:round;
+  stroke-dasharray:565.5;
+  stroke-dashoffset:565.5;
+  transition:stroke-dashoffset .25s;
+  filter:drop-shadow(0 0 7px rgba(185,243,106,.25));
+}
+
+.gauge-center {
+  text-align:center;
+  position:relative;
+}
+
+.gauge-value {
+  font-size:51px;
+  font-weight:800;
+  letter-spacing:-3px;
+  font-variant-numeric:tabular-nums;
+}
+
+.gauge-unit {
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.gauge-caption {
+  color:#777f90;
+  font-size:9px;
+  margin-top:12px;
+  letter-spacing:1.5px;
+}
+
+.start-button {
+  background:var(--accent);
+  color:#11160b;
+  border:0;
+  border-radius:10px;
+  padding:15px 38px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  transition:.2s;
+  min-width:180px;
+}
+
+.start-button:hover {
+  background:var(--accent2);
+  transform:translateY(-2px);
+  box-shadow:0 8px 30px rgba(185,243,106,.13);
+}
+
+.start-button:disabled {
+  opacity:.55;
+  cursor:wait;
+  transform:none;
+}
+
+.test-message {
+  color:var(--muted);
+  font-size:10px;
+  margin-top:14px;
+  text-align:center;
+  min-height:17px;
+}
+
+/* RESULT CARDS */
+
+.result-column {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.result-card {
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px;
+  flex:1;
+}
+
+.result-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.result-icon {
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:var(--surface2);
+  color:var(--accent);
+  font-size:15px;
+}
+
+.result-number {
+  font-size:31px;
+  font-weight:800;
+  letter-spacing:-1px;
+  margin-top:15px;
+  font-variant-numeric:tabular-nums;
+}
+
+.result-unit {
+  color:var(--muted);
+  font-size:10px;
+  margin-left:5px;
+  font-weight:500;
+}
+
+.result-detail {
+  color:#777f90;
+  font-size:9px;
+  margin-top:5px;
+}
+
+/* LOWER GRID */
+
+.lower-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:18px;
+}
+
+.info-panel {
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:23px;
+}
+
+.info-panel h3 {
+  font-size:12px;
+  margin-bottom:17px;
+}
+
+.info-row {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-top:1px solid var(--line);
+  font-size:10px;
+}
+
+.info-row span:first-child {color:var(--muted)}
+.info-row span:last-child {font-family:var(--mono);text-align:right}
+
+/* DNS */
+
+.dns-panel {
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:27px;
+}
+
+.dns-form {
+  display:grid;
+  grid-template-columns:1fr 130px auto;
+  gap:10px;
+}
+
+.field {
+  min-width:0;
+  width:100%;
+  padding:14px;
+  color:white;
+  background:#0b0e14;
+  border:1px solid var(--line);
+  border-radius:9px;
+  outline:none;
+  font-size:11px;
+}
+
+.field:focus {border-color:var(--accent)}
+
+select.field {cursor:pointer}
+
+.action-button {
+  background:var(--accent);
+  color:#10150b;
+  border:0;
+  border-radius:9px;
+  padding:0 20px;
+  font-size:10px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.action-button:disabled {opacity:.5;cursor:wait}
+
+.dns-note {
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.8;
+  margin-top:15px;
+}
+
+.dns-results {
+  margin-top:25px;
+  border-top:1px solid var(--line);
+}
+
+.dns-result {
+  display:grid;
+  grid-template-columns:75px 1fr;
+  gap:15px;
+  padding:15px 4px;
+  border-bottom:1px solid var(--line);
+  font-size:11px;
+}
+
+.dns-type {
+  color:var(--accent);
+  font-family:var(--mono);
+}
+
+.dns-data {
+  font-family:var(--mono);
+  color:#c4cad5;
+  overflow-wrap:anywhere;
+}
+
+.empty-result {
+  padding:24px 0;
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* TOOLS */
+
+.tool-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.tool-card {
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:23px;
+}
+
+.tool-card h3 {font-size:13px;margin-bottom:8px}
+.tool-card p {font-size:10px;color:var(--muted);line-height:1.8}
+
+.tool-card button {margin-top:16px}
+
+.tool-result {
+  color:var(--accent);
+  font-family:var(--mono);
+  font-size:11px;
+  margin-top:15px;
+  overflow-wrap:anywhere;
+}
+
+/* ABOUT */
+
+.about-card {
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:40px;
+}
+
+.about-card h2 {
+  font-size:30px;
+  letter-spacing:-1px;
+}
+
+.about-card h2 span {color:var(--accent)}
+
+.about-card p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+  max-width:600px;
+  margin-top:15px;
+}
+
+.about-links {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+
+.about-links a {
+  border:1px solid var(--line);
+  padding:11px 15px;
+  border-radius:8px;
+  font-size:10px;
+  color:#c4cad5;
+}
+
+.about-links a:hover {
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+/* FOOTER */
+
+footer {
+  border-top:1px solid var(--line);
+  padding:24px 0 30px;
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  color:#707787;
+  font-size:9px;
+  letter-spacing:1px;
+}
+
+footer strong {color:#c4cad5}
+
+/* RESPONSIVE */
+
+@media(max-width:850px) {
+  .shell {padding:0 25px}
+  .speed-layout {grid-template-columns:1fr}
+  .result-column {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
   }
-  .brand {padding:3px 4px 14px}
-  .brand-icon {width:39px;height:39px}
-  .brand-name {font-size:17px}
-  .brand-sub {font-size:8px}
-  .menu-label,.sidebar-bottom {display:none}
-  .nav {
-    flex-direction:row;
-    overflow-x:auto;
-    padding-bottom:3px;
-  }
-  .nav button {
-    flex-shrink:0;
-    padding:10px 12px;
-    font-size:10px;
-  }
-  .nav-icon {width:auto}
-  .main {padding:22px 15px 35px}
-  .topbar {margin-bottom:22px}
-  .page-title {font-size:20px}
-  .page-subtitle {font-size:10px}
-  .internet-pill {padding:9px;font-size:9px}
-  .language-btn {padding:9px;font-size:10px}
-  .hero {
-    grid-template-columns:1fr;
-    padding:25px 21px;
-  }
-  .hero-art {min-height:150px}
-  .orbit {width:145px;height:145px}
-  .orbit-logo {width:88px;height:88px}
-  .dashboard-grid {grid-template-columns:1fr}
-  .metrics {grid-template-columns:1fr}
+  .hero-meta {display:none}
+}
+
+@media(max-width:600px) {
+  .shell {padding:0 17px}
+  header {height:70px}
+  .header-right {gap:12px}
+  .header-link {display:none}
+  .hero {padding:47px 0 30px}
+  .hero h1 {letter-spacing:-2px}
+  .hero-description {font-size:11px}
+  .tabs {margin:0 -17px;padding:0 12px}
+  .tab {padding:15px 13px}
+  .content {padding-top:22px}
+  .speed-main {padding:22px 15px;min-height:390px}
+  .gauge {width:220px;height:220px}
+  .gauge-value {font-size:44px}
+  .result-column {grid-template-columns:1fr}
+  .result-card {padding:16px}
+  .result-number {font-size:25px}
+  .lower-grid {grid-template-columns:1fr}
+  .dns-panel {padding:19px}
+  .dns-form {grid-template-columns:1fr 1fr}
+  .dns-form .field:first-child {grid-column:1/-1}
+  .dns-form button {min-height:43px}
   .tool-grid {grid-template-columns:1fr}
-  .panel {padding:20px}
-  .connection-area {gap:15px}
-  .power-button {width:125px;height:125px}
+  .about-card {padding:25px}
+  footer {flex-direction:column}
 }
 
-@media(max-width:390px) {
-  .nav button {padding:9px}
-  .nav button span:last-child {font-size:9px}
-  .top-right {gap:6px}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="shell">
 
-<!-- SIDEBAR -->
-
-<aside class="sidebar">
-
-  <div class="brand">
-    <div class="brand-icon">
-      <svg viewBox="0 0 100 100" fill="none">
-        <path d="M18 18 L42 82 L53 82 L82 18 L64 18 L47 59 L35 18 Z"
-          fill="white"/>
-        <path d="M52 18 L82 18 L70 39"
-          stroke="#ffd4db" stroke-width="5" fill="none"/>
-      </svg>
-    </div>
+<header>
+  <a class="brand" href="#" aria-label="PKDEV home">
+    <div class="brand-mark">P.</div>
     <div>
-      <div class="brand-name">VORTEX</div>
-      <div class="brand-sub">PRIVATE NETWORK</div>
+      <div class="brand-name">PKDEV</div>
+      <div class="brand-caption">DIGITAL TOOLS</div>
+    </div>
+  </a>
+
+  <div class="header-right">
+    <a class="header-link" href="https://github.com/resurect63" target="_blank" rel="noopener">GITHUB ↗</a>
+    <a class="header-link" href="https://resurect.dev" target="_blank" rel="noopener">WEBSITE ↗</a>
+    <div class="header-status">
+      <span class="status-dot" id="onlineDot"></span>
+      <span id="onlineText">CHECKING</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">01 / NETWORK LAB</div>
+    <h1>Know your<br><span>connection.</span></h1>
+    <p class="hero-description">
+      Measure your internet performance, inspect network quality
+      and explore DNS records. Simple tools, clear results.
+    </p>
+  </div>
+
+  <div class="hero-meta mono">
+    PKDEV / NETWORK<br>
+    SPEED · LATENCY · DNS<br>
+    VERSION 1.0
+  </div>
+</section>
+
+<nav class="tabs">
+  <button class="tab active" data-view="speed">01 &nbsp; Speed Test</button>
+  <button class="tab" data-view="dns">02 &nbsp; DNS Lookup</button>
+  <button class="tab" data-view="tools">03 &nbsp; Network Tools</button>
+  <button class="tab" data-view="about">04 &nbsp; About</button>
+</nav>
+
+<main class="content">
+
+<!-- SPEED TEST -->
+
+<section class="view active" id="speed">
+
+  <div class="section-heading">
+    <div>
+      <h2>Internet performance</h2>
+      <p>Run a test to measure your current connection.</p>
+    </div>
+    <span class="mono" style="font-size:9px;color:#858c9d">LIVE TEST</span>
+  </div>
+
+  <div class="speed-layout">
+
+    <div class="speed-main">
+
+      <div class="speed-label" id="testPhase">READY TO TEST</div>
+
+      <div class="gauge">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="gauge-track" cx="100" cy="100" r="90"/>
+          <circle class="gauge-progress" id="gaugeProgress"
+            cx="100" cy="100" r="90"/>
+        </svg>
+
+        <div class="gauge-center">
+          <div class="gauge-value" id="gaugeValue">0.0</div>
+          <div class="gauge-unit">Mbps</div>
+          <div class="gauge-caption" id="gaugeCaption">DOWNLOAD SPEED</div>
+        </div>
+      </div>
+
+      <button class="start-button" id="startTest">START TEST</button>
+      <div class="test-message" id="testMessage">
+        Press start to begin your internet speed test.
+      </div>
+
+    </div>
+
+    <div class="result-column">
+
+      <div class="result-card">
+        <div class="result-top">
+          <span>DOWNLOAD</span>
+          <span class="result-icon">↓</span>
+        </div>
+        <div class="result-number" id="downloadValue">—<span class="result-unit">Mbps</span></div>
+        <div class="result-detail">Receiving data from test server</div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-top">
+          <span>UPLOAD</span>
+          <span class="result-icon">↑</span>
+        </div>
+        <div class="result-number" id="uploadValue">—<span class="result-unit">Mbps</span></div>
+        <div class="result-detail">Sending data to test server</div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-top">
+          <span>LATENCY / PING</span>
+          <span class="result-icon">◷</span>
+        </div>
+        <div class="result-number" id="pingValue">—<span class="result-unit">ms</span></div>
+        <div class="result-detail">Round-trip request time</div>
+      </div>
+
     </div>
   </div>
 
-  <div class="menu-label">MAIN MENU</div>
+  <div class="lower-grid">
 
-  <nav class="nav">
-    <button class="active" data-page="overview">
-      <span class="nav-icon">◈</span><span>Overview</span>
-    </button>
-    <button data-page="servers">
-      <span class="nav-icon">◎</span><span>Server Explorer</span>
-    </button>
-    <button data-page="dns">
-      <span class="nav-icon">⌘</span><span>DNS Center</span>
-    </button>
-    <button data-page="tools">
-      <span class="nav-icon">⌁</span><span>Network Tools</span>
-    </button>
-    <button data-page="privacy">
-      <span class="nav-icon">⬡</span><span>Privacy Center</span>
-    </button>
-  </nav>
+    <div class="info-panel">
+      <h3>TEST DETAILS</h3>
+      <div class="info-row">
+        <span>Jitter</span>
+        <span id="jitterValue">— ms</span>
+      </div>
+      <div class="info-row">
+        <span>Connection</span>
+        <span id="connectionType">—</span>
+      </div>
+      <div class="info-row">
+        <span>Browser status</span>
+        <span id="browserStatus">—</span>
+      </div>
+    </div>
 
-  <div class="menu-label">PREFERENCES</div>
+    <div class="info-panel">
+      <h3>PUBLIC NETWORK</h3>
+      <div class="info-row">
+        <span>Public IP</span>
+        <span id="publicIP">Loading...</span>
+      </div>
+      <div class="info-row">
+        <span>Test provider</span>
+        <span>Cloudflare</span>
+      </div>
+      <div class="info-row">
+        <span>Measurement</span>
+        <span>Browser-based</span>
+      </div>
+    </div>
 
-  <nav class="nav">
-    <button data-page="settings">
-      <span class="nav-icon">⚙</span><span>Settings</span>
-    </button>
-    <button data-page="about">
-      <span class="nav-icon">ⓘ</span><span>About Vortex</span>
-    </button>
-  </nav>
+  </div>
 
-  <div class="sidebar-bottom">
-    <div class="powered">
-      CRAFTED WITH PRECISION<br>
-      <strong>POWERED BY PKDEV</strong>
+</section>
+
+<!-- DNS LOOKUP -->
+
+<section class="view" id="dns">
+
+  <div class="section-heading">
+    <div>
+      <h2>DNS Lookup</h2>
+      <p>Inspect DNS records for any domain name.</p>
+    </div>
+    <span class="mono" style="font-size:9px;color:#858c9d">DNS / RESOLVER</span>
+  </div>
+
+  <div class="dns-panel">
+
+    <div class="dns-form">
+      <input class="field" id="domainInput"
+        placeholder="Enter domain — example.com"
+        autocomplete="off" spellcheck="false">
+
+      <select class="field" id="recordType">
+        <option value="A">A Record</option>
+        <option value="AAAA">AAAA Record</option>
+        <option value="MX">MX Record</option>
+        <option value="TXT">TXT Record</option>
+        <option value="NS">NS Record</option>
+        <option value="CNAME">CNAME Record</option>
+      </select>
+
+      <button class="action-button" id="dnsButton">LOOK UP ↗</button>
+    </div>
+
+    <p class="dns-note">
+      DNS queries are sent to Google's public DNS-over-HTTPS resolver.
+      Results depend on DNS propagation and the selected record type.
+    </p>
+
+    <div class="dns-results" id="dnsResults">
+      <div class="empty-result">Enter a domain to view its DNS records.</div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- NETWORK TOOLS -->
+
+<section class="view" id="tools">
+
+  <div class="section-heading">
+    <div>
+      <h2>Network tools</h2>
+      <p>Quick checks for your current internet connection.</p>
     </div>
   </div>
 
-</aside>
-
-<!-- MAIN CONTENT -->
-
-<main class="main">
-
-  <header class="topbar">
-    <div>
-      <div class="page-title" id="pageTitle">Overview</div>
-      <div class="page-subtitle">Your personal network control center.</div>
-    </div>
-
-    <div class="top-right">
-      <div class="internet-pill">
-        <span class="dot" id="internetDot"></span>
-        <span id="internetText">Checking internet...</span>
-      </div>
-      <button class="language-btn" id="languageBtn">EN / FA</button>
-    </div>
-  </header>
-
-  <!-- OVERVIEW -->
-
-  <section class="page active" id="overview">
-
-    <div class="hero">
-      <div>
-        <div class="eyebrow">WELCOME TO VORTEX</div>
-        <h1>YOUR NETWORK.<br><span>YOUR CONTROL.</span></h1>
-        <p class="hero-desc">
-          A modern network control center designed around privacy,
-          clarity and a better connection experience.
-        </p>
-
-        <div class="hero-actions">
-          <button class="primary-btn" onclick="showPage('servers')">
-            EXPLORE SERVERS ↗
-          </button>
-          <button class="secondary-btn" onclick="showPage('tools')">
-            NETWORK TOOLS
-          </button>
-        </div>
-      </div>
-
-      <div class="hero-art">
-        <div class="orbit">
-          <div class="orbit-logo">
-            <svg viewBox="0 0 100 100" fill="none">
-              <path d="M18 18 L42 82 L53 82 L82 18 L64 18 L47 59 L35 18 Z"
-                fill="white"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="dashboard-grid">
-
-      <div class="panel">
-        <div class="panel-heading">
-          <h3>VPN CONTROL</h3>
-          <span>CONNECTION STATUS</span>
-        </div>
-
-        <div class="connection-area">
-          <button class="power-button" id="powerButton"
-            onclick="demoConnect()" aria-label="VPN demo control">
-            <svg viewBox="0 0 100 100" fill="none">
-              <path d="M50 13 V48" stroke="currentColor"
-                stroke-width="8" stroke-linecap="round"/>
-              <path d="M27 27 A36 36 0 1 0 73 27"
-                stroke="currentColor" stroke-width="8"
-                stroke-linecap="round" fill="none"/>
-            </svg>
-          </button>
-
-          <div class="connection-text">
-            <h2 id="connectionTitle">Not Connected</h2>
-            <p id="connectionDescription">
-              No VPN server is configured.
-              <br>Demo interface only.
-            </p>
-            <div class="status-tag" id="connectionTag">DEMO MODE</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-heading">
-          <h3>SERVER SELECTION</h3>
-          <span>LOCATION</span>
-        </div>
-
-        <p style="font-size:11px;color:#858b9b">
-          Choose a location for the interface preview.
-        </p>
-
-        <select class="server-select" id="serverSelect">
-          <option value="🇺🇸">🇺🇸 United States — New York</option>
-          <option value="🇩🇪">🇩🇪 Germany — Frankfurt</option>
-          <option value="🇬🇧">🇬🇧 United Kingdom — London</option>
-          <option value="🇳🇱">🇳🇱 Netherlands — Amsterdam</option>
-          <option value="🇯🇵">🇯🇵 Japan — Tokyo</option>
-          <option value="🇫🇷">🇫🇷 France — Paris</option>
-        </select>
-
-        <div class="server-info">
-          <div class="flag" id="serverFlag">🇺🇸</div>
-          <div>
-            <strong id="serverName">United States</strong>
-            <p id="serverCity">New York · Preview location</p>
-          </div>
-        </div>
-
-        <div class="notice">
-          These are preview locations, not active VPN servers.
-        </div>
-      </div>
-
-    </div>
-
-    <div class="metrics">
-
-      <div class="metric">
-        <div class="metric-icon">◉</div>
-        <div class="metric-label">PUBLIC IP ADDRESS</div>
-        <div class="metric-value" id="ipValue">Loading...</div>
-        <div class="metric-note">Detected from your current connection</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-icon">⌁</div>
-        <div class="metric-label">NETWORK STATUS</div>
-        <div class="metric-value" id="networkValue">Checking</div>
-        <div class="metric-note">Browser network availability</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-icon">◷</div>
-        <div class="metric-label">VPN STATUS</div>
-        <div class="metric-value" style="color:#ffb44a">Demo</div>
-        <div class="metric-note">No active VPN tunnel configured</div>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- SERVERS -->
-
-  <section class="page" id="servers">
-    <h2 class="section-title">Server Explorer</h2>
-    <p class="section-desc">
-      Explore available location previews and choose your preferred region.
-    </p>
-
-    <div class="tool-grid" id="serverCards"></div>
-
-    <div class="notice">
-      Server locations shown here are illustrative. To enable real VPN
-      connections, a compatible VPN server and connection configuration
-      must be provided.
-    </div>
-  </section>
-
-  <!-- DNS -->
-
-  <section class="page" id="dns">
-    <h2 class="section-title">DNS Center</h2>
-    <p class="section-desc">
-      Perform DNS lookups using Google's public DNS-over-HTTPS service.
-    </p>
+  <div class="tool-grid">
 
     <div class="tool-card">
-      <h3>DNS Lookup</h3>
-      <p>Enter a domain name to retrieve its DNS A records.</p>
-      <input class="field" id="dnsInput" placeholder="example.com">
-      <button class="primary-btn" onclick="dnsLookup()">LOOK UP DNS</button>
-      <div class="result" id="dnsResult">Results will appear here.</div>
-    </div>
-  </section>
-
-  <!-- NETWORK TOOLS -->
-
-  <section class="page" id="tools">
-    <h2 class="section-title">Network Tools</h2>
-    <p class="section-desc">
-      Useful diagnostics for checking your current network connection.
-    </p>
-
-    <div class="tool-grid">
-
-      <div class="tool-card">
-        <h3>Public IP Checker</h3>
-        <p>Retrieve the public IP address visible to an external service.</p>
-        <button class="primary-btn" onclick="checkIP()">CHECK MY IP</button>
-        <div class="result" id="ipResult">Waiting for request...</div>
-      </div>
-
-      <div class="tool-card">
-        <h3>Internet Status</h3>
-        <p>Check whether your browser reports an available network connection.</p>
-        <button class="secondary-btn" onclick="checkInternet()">CHECK STATUS</button>
-        <div class="result" id="internetResult">Waiting for request...</div>
-      </div>
-
-      <div class="tool-card">
-        <h3>DNS Resolver</h3>
-        <p>Resolve a domain using a public DNS service.</p>
-        <input class="field" id="toolDomain" placeholder="example.com">
-        <button class="primary-btn" onclick="toolDNS()">RESOLVE DOMAIN</button>
-        <div class="result" id="toolDNSResult">Waiting for request...</div>
-      </div>
-
-      <div class="tool-card">
-        <h3>Browser Information</h3>
-        <p>View basic information reported by your browser.</p>
-        <button class="secondary-btn" onclick="browserInfo()">VIEW DETAILS</button>
-        <div class="result" id="browserResult">Waiting for request...</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- PRIVACY -->
-
-  <section class="page" id="privacy">
-    <h2 class="section-title">Privacy Center</h2>
-    <p class="section-desc">
-      Understand what this interface does and how network diagnostics work.
-    </p>
-
-    <div class="panel">
-      <div class="setting-row">
-        <div>
-          <strong>Public IP Lookup</strong>
-          <p>Requests your public IP from an external provider when activated.</p>
-        </div>
-        <span style="color:var(--green)">AVAILABLE</span>
-      </div>
-
-      <div class="setting-row">
-        <div>
-          <strong>DNS Diagnostics</strong>
-          <p>Uses a public DNS-over-HTTPS endpoint for domain lookups.</p>
-        </div>
-        <span style="color:var(--green)">AVAILABLE</span>
-      </div>
-
-      <div class="setting-row">
-        <div>
-          <strong>VPN Tunnel</strong>
-          <p>No VPN tunnel is currently configured by this demo interface.</p>
-        </div>
-        <span style="color:#ffb44a">NOT CONFIGURED</span>
-      </div>
-
-      <div class="setting-row">
-        <div>
-          <strong>Local Data Storage</strong>
-          <p>This demo does not save your IP lookup results.</p>
-        </div>
-        <span style="color:var(--green)">NO STORAGE</span>
-      </div>
+      <h3>Public IP Address</h3>
+      <p>Find the public IP address visible to an external service.</p>
+      <button class="action-button" onclick="lookupIP()">CHECK IP</button>
+      <div class="tool-result" id="ipToolResult">Ready.</div>
     </div>
 
-    <div class="notice">
-      IP and DNS requests are sent to external services when you use
-      those tools. This page does not hide your IP address or encrypt
-      your network traffic.
+    <div class="tool-card">
+      <h3>Latency Test</h3>
+      <p>Measure the response time of a public test endpoint.</p>
+      <button class="action-button" onclick="runPing()">TEST PING</button>
+      <div class="tool-result" id="pingToolResult">Ready.</div>
     </div>
-  </section>
 
-  <!-- SETTINGS -->
-
-  <section class="page" id="settings">
-    <h2 class="section-title">Settings</h2>
-    <p class="section-desc">
-      Customize the VORTEX interface.
-    </p>
-
-    <div class="panel">
-
-      <div class="setting-row">
-        <div>
-          <strong>Interface Animations</strong>
-          <p>Visual transitions and interface effects.</p>
-        </div>
-        <input class="switch" type="checkbox" checked>
-      </div>
-
-      <div class="setting-row">
-        <div>
-          <strong>Red Accent Theme</strong>
-          <p>VORTEX signature color scheme.</p>
-        </div>
-        <input class="switch" type="checkbox" checked>
-      </div>
-
-      <div class="setting-row">
-        <div>
-          <strong>Automatic Status Check</strong>
-          <p>Update the browser's online status indicator.</p>
-        </div>
-        <input class="switch" type="checkbox" checked id="autoCheck">
-      </div>
-
-      <div class="setting-row">
-        <div>
-          <strong>Interface Version</strong>
-          <p>Current build information.</p>
-        </div>
-        <span style="color:var(--red);font-size:11px">V1.0.0</span>
-      </div>
-
+    <div class="tool-card">
+      <h3>Connection Information</h3>
+      <p>View the network information exposed by your browser.</p>
+      <button class="action-button" onclick="showConnectionInfo()">VIEW INFO</button>
+      <div class="tool-result" id="connectionToolResult">Ready.</div>
     </div>
-  </section>
 
-  <!-- ABOUT -->
-
-  <section class="page" id="about">
-    <div class="panel" style="text-align:center;padding:45px 25px">
-      <div class="brand-icon" style="margin:0 auto 20px;width:70px;height:70px">
-        <svg viewBox="0 0 100 100" fill="none">
-          <path d="M18 18 L42 82 L53 82 L82 18 L64 18 L47 59 L35 18 Z"
-            fill="white"/>
-        </svg>
-      </div>
-
-      <h1 style="font-size:30px;letter-spacing:4px">VORTEX VPN</h1>
-      <p style="color:var(--red);font-size:10px;letter-spacing:3px;margin-top:10px">
-        POWERED BY PKDEV
-      </p>
-
-      <p style="color:#9299a9;max-width:450px;margin:25px auto;line-height:2;font-size:12px">
-        VORTEX is a modern network control interface built with a focus
-        on clean design, useful diagnostics and a privacy-oriented experience.
-      </p>
-
-      <div style="color:#717888;font-size:10px;letter-spacing:2px">
-        VERSION 1.0.0 · WEB INTERFACE
-      </div>
+    <div class="tool-card">
+      <h3>DNS Quick Check</h3>
+      <p>Resolve a domain using a public DNS resolver.</p>
+      <input class="field" id="quickDomain" placeholder="example.com">
+      <button class="action-button" onclick="quickDNS()">RESOLVE</button>
+      <div class="tool-result" id="quickDNSResult">Ready.</div>
     </div>
-  </section>
 
-  <div class="footer">
-    VORTEX VPN · POWERED BY PKDEV · INTERFACE DEMO
   </div>
 
+</section>
+
+<!-- ABOUT -->
+
+<section class="view" id="about">
+
+  <div class="about-card">
+    <div class="eyebrow">INDEPENDENT DEVELOPMENT BRAND</div>
+
+    <h2>Ideas into<br><span>digital reality.</span></h2>
+
+    <p>
+      PKDEV is an independent development brand focused on turning
+      ideas into practical digital products. Network Lab is a collection
+      of simple tools for understanding internet performance and DNS.
+    </p>
+
+    <p>
+      Built with purpose. Improved with every iteration.
+    </p>
+
+    <div class="about-links">
+      <a href="https://github.com/resurect63" target="_blank" rel="noopener">GITHUB ↗</a>
+      <a href="https://resurect.dev" target="_blank" rel="noopener">PKDEV WEBSITE ↗</a>
+    </div>
+  </div>
+
+</section>
+
 </main>
+
+<footer>
+  <div><strong>PKDEV.</strong> &nbsp; IDEAS INTO DIGITAL REALITY.</div>
+  <div>NETWORK LAB · VERSION 1.0 · 2026</div>
+</footer>
+
 </div>
 
 <script>
 /* NAVIGATION */
 
-const pageNames = {
-  overview:"Overview",
-  servers:"Server Explorer",
-  dns:"DNS Center",
-  tools:"Network Tools",
-  privacy:"Privacy Center",
-  settings:"Settings",
-  about:"About VORTEX"
-};
-
-function showPage(page) {
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.remove("active");
-  });
-
-  document.querySelectorAll(".nav button").forEach(b => {
-    b.classList.toggle("active", b.dataset.page === page);
-  });
-
-  const target = document.getElementById(page);
-
-  if (target) {
-    target.classList.add("active");
-    document.getElementById("pageTitle").textContent = pageNames[page];
-  }
-}
-
-document.querySelectorAll(".nav button").forEach(button => {
+document.querySelectorAll(".tab").forEach(button => {
   button.addEventListener("click", () => {
-    showPage(button.dataset.page);
+    document.querySelectorAll(".tab").forEach(b =>
+      b.classList.remove("active")
+    );
+
+    document.querySelectorAll(".view").forEach(v =>
+      v.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    const target = document.getElementById(button.dataset.view);
+    if (target) target.classList.add("active");
   });
 });
 
-/* VPN DEMO */
+/* ONLINE STATUS */
 
-function demoConnect() {
-  const tag = document.getElementById("connectionTag");
-  const title = document.getElementById("connectionTitle");
-  const description = document.getElementById("connectionDescription");
-  const button = document.getElementById("powerButton");
-
-  title.textContent = "Not Connected";
-  description.innerHTML =
-    "A real VPN server is not configured.<br>Connection is unavailable.";
-  tag.textContent = "DEMO MODE";
-  button.classList.add("demo");
-
-  alert(
-    "VORTEX DEMO MODE\n\nNo real VPN server is configured yet.\nThis button does not create a VPN connection."
-  );
-}
-
-/* SERVER SELECTION */
-
-const serverData = [
-  {flag:"🇺🇸",name:"United States",city:"New York"},
-  {flag:"🇩🇪",name:"Germany",city:"Frankfurt"},
-  {flag:"🇬🇧",name:"United Kingdom",city:"London"},
-  {flag:"🇳🇱",name:"Netherlands",city:"Amsterdam"},
-  {flag:"🇯🇵",name:"Japan",city:"Tokyo"},
-  {flag:"🇫🇷",name:"France",city:"Paris"}
-];
-
-const serverSelect = document.getElementById("serverSelect");
-
-serverSelect.addEventListener("change", () => {
-  const index = serverSelect.selectedIndex;
-  const server = serverData[index];
-
-  document.getElementById("serverFlag").textContent = server.flag;
-  document.getElementById("serverName").textContent = server.name;
-  document.getElementById("serverCity").textContent =
-    server.city + " · Preview location";
-});
-
-document.getElementById("serverCards").innerHTML =
-  serverData.map((server,index) => `
-    <div class="tool-card">
-      <div style="font-size:30px;margin-bottom:15px">${server.flag}</div>
-      <h3>${server.name}</h3>
-      <p>${server.city} · Preview location</p>
-      <button class="secondary-btn" onclick="chooseServer(${index})">
-        SELECT LOCATION
-      </button>
-    </div>
-  `).join("");
-
-function chooseServer(index) {
-  serverSelect.selectedIndex = index;
-  serverSelect.dispatchEvent(new Event("change"));
-  showPage("overview");
-}
-
-/* INTERNET STATUS */
-
-function checkInternet() {
-  const online = navigator.onLine;
-  const result = document.getElementById("internetResult");
-
-  result.textContent = online
-    ? "Browser reports that a network connection is available."
-    : "Browser reports that you are offline.";
-
-  document.getElementById("networkValue").textContent =
-    online ? "Online" : "Offline";
-}
-
-function updateInternetStatus() {
+function updateOnlineStatus() {
   const online = navigator.onLine;
 
-  document.getElementById("internetText").textContent =
-    online ? "Internet Available" : "Offline";
+  document.getElementById("onlineText").textContent =
+    online ? "ONLINE" : "OFFLINE";
 
-  document.getElementById("internetDot").style.background =
-    online ? "#32d99a" : "#ff334f";
-
-  document.getElementById("networkValue").textContent =
-    online ? "Online" : "Offline";
+  document.getElementById("onlineDot").style.background =
+    online ? "var(--accent)" : "var(--red)";
 }
 
-window.addEventListener("online", updateInternetStatus);
-window.addEventListener("offline", updateInternetStatus);
+window.addEventListener("online", updateOnlineStatus);
+window.addEventListener("offline", updateOnlineStatus);
+updateOnlineStatus();
+
+/* CONNECTION INFO */
+
+function showConnectionInfo() {
+  const connection =
+    navigator.connection ||
+    navigator.mozConnection ||
+    navigator.webkitConnection;
+
+  let info = "Network information is limited by this browser.";
+
+  if (connection) {
+    info =
+      "Type: " + (connection.type || "Unknown") +
+      " | Effective: " + (connection.effectiveType || "Unknown") +
+      " | Downlink: " + (connection.downlink ?? "Unknown") + " Mbps";
+  }
+
+  document.getElementById("connectionToolResult").textContent = info;
+
+  document.getElementById("connectionType").textContent =
+    connection?.effectiveType || "Not exposed";
+
+  document.getElementById("browserStatus").textContent =
+    navigator.onLine ? "Online" : "Offline";
+}
+
+showConnectionInfo();
 
 /* PUBLIC IP */
 
-async function checkIP() {
-  const output = document.getElementById("ipResult");
-  output.textContent = "Checking public IP...";
+async function lookupIP() {
+  const output = document.getElementById("ipToolResult");
+  output.textContent = "Checking...";
 
   try {
-    const response = await fetch("https://api.ipify.org?format=json");
+    const response = await fetch("https://api.ipify.org?format=json", {
+      cache:"no-store"
+    });
 
     if (!response.ok) throw new Error("Request failed");
 
     const data = await response.json();
 
-    output.textContent = "Public IP: " + data.ip;
-    document.getElementById("ipValue").textContent = data.ip;
+    output.textContent = data.ip;
+    document.getElementById("publicIP").textContent = data.ip;
   } catch (error) {
-    output.textContent =
-      "Unable to retrieve IP. Check your internet connection.";
+    output.textContent = "Could not retrieve IP.";
   }
 }
 
-/* DNS LOOKUP */
+lookupIP();
 
-async function performDNS(domain, output) {
-  const cleanDomain = domain.trim();
+/* DNS */
 
-  if (!/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(cleanDomain)) {
-    output.textContent = "Please enter a valid domain name.";
-    return;
+async function dnsQuery(domain, type) {
+  const clean = domain.trim().replace(/\.$/, "");
+
+  if (
+    clean.length > 253 ||
+    !/^(?=.{1,253}$)([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,63}$/.test(clean)
+  ) {
+    throw new Error("Enter a valid domain name.");
   }
 
-  output.textContent = "Resolving domain...";
+  const url =
+    "https://dns.google/resolve?name=" +
+    encodeURIComponent(clean) +
+    "&type=" + encodeURIComponent(type);
+
+  const response = await fetch(url, {cache:"no-store"});
+
+  if (!response.ok) throw new Error("DNS request failed.");
+
+  return response.json();
+}
+
+async function performDNS(domain, type, output) {
+  output.innerHTML = '<div class="empty-result">Querying DNS resolver...</div>';
 
   try {
-    const url =
-      "https://dns.google/resolve?name=" +
-      encodeURIComponent(cleanDomain) +
-      "&type=A";
+    const data = await dnsQuery(domain, type);
 
-    const response = await fetch(url);
+    if (data.Status !== 0 && !data.Answer) {
+      output.innerHTML =
+        '<div class="empty-result">No records found. DNS response code: ' +
+        data.Status + '</div>';
+      return;
+    }
 
-    if (!response.ok) throw new Error("DNS request failed");
+    const answers = data.Answer || [];
 
-    const data = await response.json();
+    if (!answers.length) {
+      output.innerHTML =
+        '<div class="empty-result">No records found for this query.</div>';
+      return;
+    }
 
-    const answers = (data.Answer || [])
-      .filter(item => item.type === 1)
-      .map(item => item.data);
+    output.innerHTML = answers.map(record => `
+      <div class="dns-result">
+        <div class="dns-type">${type}</div>
+        <div class="dns-data">${escapeHTML(record.data)}</div>
+      </div>
+    `).join("");
 
-    output.textContent = answers.length
-      ? "Domain: " + cleanDomain + "\nIP records:\n" + answers.join("\n")
-      : "No A records found for this domain.";
   } catch (error) {
-    output.textContent =
-      "DNS request failed. Please try again.";
+    output.innerHTML =
+      '<div class="empty-result">' + escapeHTML(error.message) + '</div>';
   }
 }
 
-function dnsLookup() {
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[char]);
+}
+
+document.getElementById("dnsButton").addEventListener("click", () => {
   performDNS(
-    document.getElementById("dnsInput").value,
-    document.getElementById("dnsResult")
+    document.getElementById("domainInput").value,
+    document.getElementById("recordType").value,
+    document.getElementById("dnsResults")
   );
-}
-
-function toolDNS() {
-  performDNS(
-    document.getElementById("toolDomain").value,
-    document.getElementById("toolDNSResult")
-  );
-}
-
-/* BROWSER INFO */
-
-function browserInfo() {
-  const output = document.getElementById("browserResult");
-
-  output.textContent =
-    "Platform: " + navigator.platform +
-    "\nLanguage: " + navigator.language +
-    "\nOnline: " + navigator.onLine +
-    "\nCookies: " + navigator.cookieEnabled;
-}
-
-/* LANGUAGE SWITCH */
-
-let isPersian = false;
-
-document.getElementById("languageBtn").addEventListener("click", () => {
-  isPersian = !isPersian;
-
-  document.documentElement.lang = isPersian ? "fa" : "en";
-  document.documentElement.dir = isPersian ? "rtl" : "ltr";
-
-  document.getElementById("pageTitle").textContent =
-    isPersian ? "داشبورد" : "Overview";
-
-  document.querySelector(".page-subtitle").textContent =
-    isPersian
-      ? "مرکز کنترل شبکه شخصی شما."
-      : "Your personal network control center.";
-
-  document.getElementById("languageBtn").textContent =
-    isPersian ? "FA / EN" : "EN / FA";
-
-  document.querySelector(".hero h1").innerHTML =
-    isPersian
-      ? "شبکه شما.<br><span>کنترل شما.</span>"
-      : "YOUR NETWORK.<br><span>YOUR CONTROL.</span>";
 });
 
-/* INITIALIZE */
+document.getElementById("domainInput").addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    document.getElementById("dnsButton").click();
+  }
+});
 
-updateInternetStatus();
-checkIP();
+async function quickDNS() {
+  const domain = document.getElementById("quickDomain").value;
+  const output = document.getElementById("quickDNSResult");
+
+  output.textContent = "Resolving...";
+
+  try {
+    const data = await dnsQuery(domain, "A");
+    const records = (data.Answer || [])
+      .filter(record => record.type === 1)
+      .map(record => record.data);
+
+    output.textContent = records.length
+      ? records.join(", ")
+      : "No A records found.";
+  } catch (error) {
+    output.textContent = error.message;
+  }
+}
+
+/* PING */
+
+async function measurePing(count = 5) {
+  const samples = [];
+
+  for (let i = 0; i < count; i++) {
+    const start = performance.now();
+
+    const response = await fetch(
+      "https://speed.cloudflare.com/__down?bytes=0&ts=" +
+      Date.now() + "-" + i,
+      {cache:"no-store"}
+    );
+
+    if (!response.ok) throw new Error("Ping request failed.");
+
+    await response.arrayBuffer();
+
+    samples.push(performance.now() - start);
+  }
+
+  return samples;
+}
+
+function average(values) {
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+function calculateJitter(values) {
+  if (values.length < 2) return 0;
+
+  const differences = [];
+
+  for (let i = 1; i < values.length; i++) {
+    differences.push(Math.abs(values[i] - values[i - 1]));
+  }
+
+  return average(differences);
+}
+
+async function runPing() {
+  const output = document.getElementById("pingToolResult");
+  output.textContent = "Measuring...";
+
+  try {
+    const values = await measurePing(5);
+    output.textContent = average(values).toFixed(1) + " ms average";
+  } catch (error) {
+    output.textContent = "Ping test failed.";
+  }
+}
+
+/* SPEED TEST */
+
+const startButton = document.getElementById("startTest");
+const gaugeValue = document.getElementById("gaugeValue");
+const gaugeProgress = document.getElementById("gaugeProgress");
+const phaseLabel = document.getElementById("testPhase");
+const message = document.getElementById("testMessage");
+
+function setGauge(value, phase) {
+  gaugeValue.textContent = Number(value).toFixed(1);
+
+  const maxVisual = 500;
+  const normalized = Math.min(Math.max(value, 0), maxVisual) / maxVisual;
+
+  gaugeProgress.style.strokeDashoffset =
+    565.5 - (normalized * 565.5);
+
+  document.getElementById("gaugeCaption").textContent = phase;
+}
+
+function setResult(id, value, unit) {
+  document.getElementById(id).innerHTML =
+    escapeHTML(value) +
+    '<span class="result-unit">' + escapeHTML(unit) + '</span>';
+}
+
+async function timedDownload(bytes) {
+  const url =
+    "https://speed.cloudflare.com/__down?bytes=" +
+    bytes + "&ts=" + Date.now() + Math.random();
+
+  const start = performance.now();
+
+  const response = await fetch(url, {cache:"no-store"});
+
+  if (!response.ok) throw new Error("Download request failed.");
+
+  const data = await response.arrayBuffer();
+
+  const seconds = (performance.now() - start) / 1000;
+
+  if (seconds <= 0 || data.byteLength === 0) {
+    throw new Error("Empty download response.");
+  }
+
+  return (data.byteLength * 8 / seconds) / 1000000;
+}
+
+async function timedUpload(bytes) {
+  const payload = new Blob(
+    [new Uint8Array(bytes)],
+    {type:"application/octet-stream"}
+  );
+
+  const start = performance.now();
+
+  const response = await fetch(
+    "https://speed.cloudflare.com/__up?ts=" + Date.now(),
+    {
+      method:"POST",
+      body:payload,
+      cache:"no-store"
+    }
+  );
+
+  if (!response.ok) throw new Error("Upload request failed.");
+
+  await response.arrayBuffer();
+
+  const seconds = (performance.now() - start) / 1000;
+
+  return (bytes * 8 / seconds) / 1000000;
+}
+
+async function runSpeedTest() {
+  startButton.disabled = true;
+  startButton.textContent = "TESTING...";
+
+  setGauge(0, "LATENCY");
+  message.textContent = "Measuring latency...";
+
+  try {
+    const pings = await measurePing(7);
+    const ping = average(pings);
+    const jitter = calculateJitter(pings);
+
+    setResult("pingValue", ping.toFixed(1), "ms");
+    document.getElementById("jitterValue").textContent =
+      jitter.toFixed(1) + " ms";
+
+    phaseLabel.textContent = "DOWNLOAD TEST";
+    message.textContent = "Measuring download speed...";
+
+    let download = await timedDownload(1000000);
+    setGauge(download, "DOWNLOAD SPEED");
+
+    download = await timedDownload(10000000);
+    setGauge(download, "DOWNLOAD SPEED");
+
+    setResult("downloadValue", download.toFixed(2), "Mbps");
+
+    phaseLabel.textContent = "UPLOAD TEST";
+    message.textContent = "Measuring upload speed...";
+
+    const upload = await timedUpload(2000000);
+
+    setGauge(upload, "UPLOAD SPEED");
+    setResult("uploadValue", upload.toFixed(2), "Mbps");
+
+    phaseLabel.textContent = "TEST COMPLETE";
+    message.textContent = "Your connection test has finished.";
+
+    document.getElementById("browserStatus").textContent =
+      navigator.onLine ? "Online" : "Offline";
+
+    document.getElementById("connectionType").textContent =
+      navigator.connection?.effectiveType || "Not exposed";
+
+  } catch (error) {
+    phaseLabel.textContent = "TEST INTERRUPTED";
+    message.textContent =
+      "The test could not finish. Check your connection or try again.";
+
+    console.error("Speed test:", error);
+
+  } finally {
+    startButton.disabled = false;
+    startButton.textContent = "TEST AGAIN";
+  }
+}
+
+startButton.addEventListener("click", runSpeedTest);
+
 </script>
-
 </body>
 </html>
