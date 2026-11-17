@@ -1,1 +1,433 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0b10">
+  <meta name="description" content="VORTEX VPN — Privacy, security and connection tools powered by PKDEV.">
+
+  <title>VORTEX VPN — Secure Your Connection</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <header class="header">
+    <div class="container navbar">
+
+      <a href="#home" class="brand">
+        <span class="brand-logo">V</span>
+        <span class="brand-name">VORTEX<span>VPN</span></span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" data-page="home" class="active" data-i18n="nav.home">Home</a>
+        <a href="#tools" data-page="tools" data-i18n="nav.tools">Tools</a>
+        <a href="#locations" data-page="locations" data-i18n="nav.locations">Locations</a>
+        <a href="#privacy" data-page="privacy" data-i18n="nav.privacy">Privacy</a>
+        <a href="#faq" data-page="faq" data-i18n="nav.faq">FAQ</a>
+      </nav>
+
+      <button class="lang-btn" id="langBtn" type="button">
+        فارسی / EN
+      </button>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- HOME PAGE -->
+    <section class="page active" id="home">
+
+      <div class="container">
+
+        <div class="hero">
+
+          <div class="hero-content">
+
+            <div class="hero-badge">
+              <span class="status-dot"></span>
+              <span data-i18n="hero.badge">YOUR PRIVACY MATTERS</span>
+            </div>
+
+            <h1 data-i18n="hero.title">
+              Your Digital World.
+              <span>Without Borders.</span>
+            </h1>
+
+            <p data-i18n="hero.description">
+              Explore privacy tools, check your connection and discover the VORTEX network.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#locations" class="btn btn-primary" data-i18n="hero.locations">
+                Explore Locations
+              </a>
+
+              <a href="#tools" class="btn btn-secondary" data-i18n="hero.tools">
+                Explore Tools
+              </a>
+            </div>
+
+            <div class="hero-note">
+              <span class="status-dot"></span>
+              <span data-i18n="hero.notice">
+                VPN gateway integration is not configured yet.
+              </span>
+            </div>
+
+          </div>
+
+          <div class="hero-visual">
+            <div class="vortex-orbit orbit-one"></div>
+            <div class="vortex-orbit orbit-two"></div>
+
+            <div class="vortex-core">
+              <span>V</span>
+            </div>
+
+            <div class="visual-caption">
+              <span>VORTEX NETWORK</span>
+              <small>POWERED BY PKDEV</small>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- IP CARD -->
+        <section class="section">
+
+          <div class="section-heading">
+            <div>
+              <span class="section-tag" data-i18n="ip.tag">NETWORK INFORMATION</span>
+              <h2 data-i18n="ip.title">Your Public IP</h2>
+            </div>
+
+            <button class="btn btn-secondary" id="ipRefresh" type="button">
+              ↻ <span data-i18n="ip.refresh">Refresh</span>
+            </button>
+          </div>
+
+          <div class="card ip-card">
+            <div class="ip-main">
+              <span class="info-label" data-i18n="ip.address">IP ADDRESS</span>
+              <h3 id="ipAddress">Checking...</h3>
+              <p id="ipMeta">Retrieving network information...</p>
+            </div>
+
+            <div class="ip-symbol">IP</div>
+          </div>
+
+        </section>
+
+
+        <!-- FEATURE CARDS -->
+        <section class="section">
+
+          <div class="section-heading">
+            <div>
+              <span class="section-tag" data-i18n="features.tag">WHAT WE OFFER</span>
+              <h2 data-i18n="features.title">Explore VORTEX</h2>
+            </div>
+          </div>
+
+          <div class="grid features-grid">
+
+            <article class="card feature-card">
+              <div class="feature-icon">◈</div>
+              <h3 data-i18n="features.privacy.title">Privacy First</h3>
+              <p data-i18n="features.privacy.description">
+                Explore tools designed to help you understand your online privacy.
+              </p>
+            </article>
+
+            <article class="card feature-card">
+              <div class="feature-icon">◎</div>
+              <h3 data-i18n="features.network.title">Network Tools</h3>
+              <p data-i18n="features.network.description">
+                Check your IP, DNS, WebRTC and connection information.
+              </p>
+            </article>
+
+            <article class="card feature-card">
+              <div class="feature-icon">⌖</div>
+              <h3 data-i18n="features.locations.title">Global Locations</h3>
+              <p data-i18n="features.locations.description">
+                Explore planned VORTEX server locations around the world.
+              </p>
+            </article>
+
+          </div>
+
+        </section>
+
+      </div>
+    </section>
+
+
+    <!-- TOOLS PAGE -->
+    <section class="page" id="tools">
+
+      <div class="container">
+
+        <div class="page-heading">
+          <span class="section-tag" data-i18n="tools.tag">NETWORK DIAGNOSTICS</span>
+          <h1 data-i18n="tools.title">Connection Tools</h1>
+          <p data-i18n="tools.description">
+            Check your network information and browser privacy settings.
+          </p>
+        </div>
+
+
+        <div class="grid tools-grid">
+
+          <!-- SPEED TEST -->
+          <article class="card tool-card">
+            <div class="tool-icon">↯</div>
+
+            <h3 data-i18n="tools.speed.title">Speed Test</h3>
+
+            <p data-i18n="tools.speed.description">
+              Check your internet connection speed.
+            </p>
+
+            <div class="tool-output" id="speedOutput">
+              Not tested
+            </div>
+
+            <button class="btn btn-primary" id="speedBtn" type="button" data-i18n="tools.speed.button">
+              Start Test
+            </button>
+          </article>
+
+
+          <!-- DNS CHECK -->
+          <article class="card tool-card">
+            <div class="tool-icon">⌘</div>
+
+            <h3 data-i18n="tools.dns.title">DNS Information</h3>
+
+            <p data-i18n="tools.dns.description">
+              Check DNS information available to your browser.
+            </p>
+
+            <div class="tool-output" id="dnsOutput">
+              Not checked
+            </div>
+
+            <button class="btn btn-primary" id="dnsBtn" type="button" data-i18n="tools.dns.button">
+              Check DNS
+            </button>
+          </article>
+
+
+          <!-- WEBRTC CHECK -->
+          <article class="card tool-card">
+            <div class="tool-icon">◉</div>
+
+            <h3 data-i18n="tools.webrtc.title">WebRTC Check</h3>
+
+            <p data-i18n="tools.webrtc.description">
+              Inspect WebRTC network information exposed by your browser.
+            </p>
+
+            <div class="tool-output" id="webrtcOutput">
+              Not checked
+            </div>
+
+            <button class="btn btn-primary" id="webrtcBtn" type="button" data-i18n="tools.webrtc.button">
+              Check WebRTC
+            </button>
+          </article>
+
+
+          <!-- CONNECTION INFO -->
+          <article class="card tool-card">
+            <div class="tool-icon">⌁</div>
+
+            <h3 data-i18n="tools.connection.title">Connection Details</h3>
+
+            <p data-i18n="tools.connection.description">
+              View available browser connection information.
+            </p>
+
+            <div class="tool-output" id="connectionOutput">
+              Not checked
+            </div>
+
+            <button class="btn btn-primary" id="connectionBtn" type="button" data-i18n="tools.connection.button">
+              View Details
+            </button>
+          </article>
+
+        </div>
+
+        <p class="section-note" data-i18n="tools.note">
+          Browser-based diagnostic results are informational and may not reveal every network detail.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- LOCATIONS PAGE -->
+    <section class="page" id="locations">
+
+      <div class="container">
+
+        <div class="page-heading">
+          <span class="section-tag" data-i18n="locations.tag">GLOBAL NETWORK</span>
+          <h1 data-i18n="locations.title">Server Locations</h1>
+          <p data-i18n="locations.description">
+            Explore the locations planned for the VORTEX network.
+          </p>
+        </div>
+
+        <div class="locations-notice">
+          <span class="status-dot"></span>
+          <span data-i18n="locations.notice">
+            Locations are planned. No active VPN gateways are currently available.
+          </span>
+        </div>
+
+        <div class="location-grid" id="locationGrid">
+
+          <!-- Locations are generated by app.js -->
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- PRIVACY PAGE -->
+    <section class="page" id="privacy">
+
+      <div class="container">
+
+        <div class="page-heading">
+          <span class="section-tag" data-i18n="privacy.tag">YOUR DATA, YOUR CONTROL</span>
+          <h1 data-i18n="privacy.title">Privacy & Security</h1>
+          <p data-i18n="privacy.description">
+            Understand what VORTEX does and what it does not do.
+          </p>
+        </div>
+
+        <div class="grid privacy-grid">
+
+          <article class="card privacy-card">
+            <div class="feature-icon">◇</div>
+            <h3 data-i18n="privacy.transparency.title">Transparency</h3>
+            <p data-i18n="privacy.transparency.description">
+              We clearly identify planned features and active services.
+            </p>
+          </article>
+
+          <article class="card privacy-card">
+            <div class="feature-icon">⌑</div>
+            <h3 data-i18n="privacy.control.title">User Control</h3>
+            <p data-i18n="privacy.control.description">
+              You should understand which network settings are being changed.
+            </p>
+          </article>
+
+          <article class="card privacy-card">
+            <div class="feature-icon">◎</div>
+            <h3 data-i18n="privacy.honesty.title">No Fake Connections</h3>
+            <p data-i18n="privacy.honesty.description">
+              A location selection does not mean a VPN connection is active.
+            </p>
+          </article>
+
+        </div>
+
+        <div class="card privacy-notice">
+          <h3 data-i18n="privacy.important.title">Important Notice</h3>
+          <p data-i18n="privacy.important.description">
+            The current website does not create an encrypted VPN tunnel or route your internet traffic through another country. Real VPN functionality requires an operational VPN gateway and compatible client integration.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- FAQ PAGE -->
+    <section class="page" id="faq">
+
+      <div class="container">
+
+        <div class="page-heading">
+          <span class="section-tag">HELP CENTER</span>
+          <h1 data-i18n="faq.title">Frequently Asked Questions</h1>
+          <p data-i18n="faq.description">
+            Answers to common questions about VORTEX VPN.
+          </p>
+        </div>
+
+        <div class="faq-list" id="faqList">
+
+          <!-- FAQ items are generated by app.js -->
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+
+      <div class="footer-brand">
+        <a href="#home" class="brand">
+          <span class="brand-logo">V</span>
+          <span class="brand-name">VORTEX<span>VPN</span></span>
+        </a>
+
+        <p data-i18n="footer.description">
+          A privacy-focused network project by PKDEV.
+        </p>
+      </div>
+
+      <div class="footer-bottom">
+        <span>
+          © <span id="year"></span> VORTEX VPN
+        </span>
+
+        <span>
+          POWERED BY <strong>PKDEV</strong>
+        </span>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+
+  <!-- APPLICATION SCRIPT -->
+  <script src="assets/app.js"></script>
+
+</body>
+</html>
